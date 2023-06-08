@@ -1,18 +1,30 @@
 var express = require('express');
 var router = express.Router();
-var data = require('./data.js').default;
+var sequelizedb = require('../models.js');
 
 
 router.get('/', (req, res) => {
-    res.json(data.projects);
+  sequelizedb.models.Project.findAll()
+  .then((projects) => {
+    console.log("projects get")
+    res.json(projects)
+  })
+  .catch(error => {
+    console.error('Error retrieving projects:', error);
+  });
 });
 
 router.get('/:id', (req, res) => {
-  const projectId = req.params.id
-  if (data.projects.hasOwnProperty(projectId)){
-    res.json(data.projects[projectId]);
-  }
-  else return res.json({ "error": "project doesn't exist."})
+  const reqProjectId = req.params.id
+  console.log("req.params.id = " + req.params.id)
+  sequelizedb.models.Project.findByPk(reqProjectId)
+  .then((reqProject) => {
+    console.log("pattern get" + reqProject)
+    res.json(reqProject)
+  })
+  .catch(error => {
+    console.error('Error retrieving project:', error);
+  });
 });
 
 router.post('/', (req, res) => { //creating a project

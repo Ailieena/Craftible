@@ -10,8 +10,8 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var patternsRouter = require('./routes/patterns');
 var projectsRouter = require('./routes/projects');
-
-
+var categoriesRouter = require('./routes/categories');
+var craftsRouter = require('./routes/crafts');
 
 var app = express();
 app.use(cors());
@@ -30,6 +30,8 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/patterns', patternsRouter);
 app.use('/projects', projectsRouter);
+app.use('/categories', categoriesRouter);
+app.use('/crafts', craftsRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

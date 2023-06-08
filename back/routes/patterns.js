@@ -1,24 +1,38 @@
 var express = require('express');
 var router = express.Router();
-var data = require('./data.js').default;
-
+var sequelizedb = require('../models.js');
 
 router.get('/', (req, res) => {
-    res.json(data.patterns);
+  sequelizedb.models.Pattern.findAll()
+  .then((reqPatterns) => {
+    console.log("patterns get")
+    res.json(reqPatterns)
+  })
+  .catch(error => {
+    console.error('Error retrieving patterns:', error);
+  });
 });
 
 router.get('/:id', (req, res) => {
-    const patternId = req.params.id
-    if (data.patterns.hasOwnProperty(patternId)){
-      res.json(data.patterns[patternId]);
-      
-    }
-    else return res.json({ "error": "pattern doesn't exist."})
+  const reqPatternId = req.params.id
+  console.log("req.params.id = " + req.params.id)
+  sequelizedb.models.Pattern.findByPk(reqPatternId)
+  .then((reqPattern) => {
+    console.log("pattern get" + reqPattern)
+    res.json(reqPattern)
+  })
+  .catch(error => {
+    console.error('Error retrieving pattern:', error);
   });
+});
 
-router.post('/', (req, res) => { //creating a pattern
-  const pattern = req.body;
-  //await AppDataSource.manager.save(project)
+router.post('/', async (req, res) => {
+  const newPattern = req.body;
+  console.log(newPattern)
+  const patt = await sequelizedb.models.Pattern.create(newPattern)
+  console.log(patt)
+  res.statusCode = 200
+  res.send()
 });
 
 router.put('/:id', (req, res) => { //updating a pattern

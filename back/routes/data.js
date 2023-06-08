@@ -75,6 +75,6 @@ const projects = [
     }
   ]
 
-  export default {patterns, projects, users, types, categories, images};
+  // export default {patterns, projects, types, categories, images};
   
   

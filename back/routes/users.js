@@ -1,18 +1,29 @@
 var express = require('express');
 var router = express.Router();
-var data = require('./data.js').default;
+var sequelizedb = require('../models.js');
 
 
 router.get('/', (req, res) => {
-    res.json(data.users);
+  sequelizedb.models.User.findAll()
+  .then((users) => {
+    console.log("users get")
+    res.json(users)
+  })
+  .catch(error => {
+    console.error('Error retrieving users:', error);
+  });
 });
 
 router.get('/:id', (req, res) => {
-  const userId = req.params.id
-  if (data.users.hasOwnProperty(userId)){
-    res.json(data.users[userId]);
-  }
-  else return res.json({ "error": "User doesn't exist."})
+  const reqUserId = req.params.id
+  sequelizedb.models.User.findByPk(reqUserId)
+  .then((reqUser) => {
+    console.log("user get")
+    res.json(reqUser)
+  })
+  .catch(error => {
+    console.error('Error retrieving user:', error);
+  });
 });
 
 router.post('/', (req, res) => {

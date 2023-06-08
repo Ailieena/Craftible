@@ -1,18 +1,28 @@
 var express = require('express');
 var router = express.Router();
-var data = require('./data.js');
-
+var sequelizedb = require('../models.js');
 
 router.get('/', (req, res) => {
-    res.json(data.categories);
+  sequelizedb.models.Category.findAll()
+  .then((categories) => {
+    console.log("categories get")
+    res.json(categories)
+  })
+  .catch(error => {
+    console.error('Error retrieving categories:', error);
+  });
 });
 
 router.get('/:id', (req, res) => {
-    const categoryId = req.params.id
-    if (data.categories.hasOwnProperty(categoryId)){
-      res.json(data.categories[categoryId]);
-    }
-    else return res.json({ "error": "category doesn't exist."})
+  const reqCategoryId = req.params.id
+  sequelizedb.models.Category.findByPk(reqCategoryId)
+  .then((reqCategory) => {
+    console.log("category get")
+    res.json(reqCategory)
+  })
+  .catch(error => {
+    console.error('Error retrieving Category:', error);
   });
+});
 
 module.exports = router;

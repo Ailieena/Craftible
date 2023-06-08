@@ -1,11 +1,4 @@
 <template>
-    <!-- <header>
-        Header:
-        <br>
-        <router-link to="/patterns">Patterns </router-link> |
-        <router-link to="/projects">Projects </router-link> |
-        <router-link to="/users">Users</router-link>
-    </header> -->
     <nav class="navbar fixed-top navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid">
         <a class="navbar-brand" href="#">Home</a>
@@ -23,22 +16,11 @@
         </div>
     </div>
     </nav>
-
-
 </template>
 
 
 <style scoped>
 .navbar-nav.me-auto.mb-2.mb-lg-0{
-    /* position: absolute;
-    right: 10px;
-    top: 5px; */
-
-    /* float: right;
-    margin-left: -50%;
-    margin-top: 2em; 
-    margin-right: 1em; */
-
     display: flex;
     flex-direction: row-reverse;
 

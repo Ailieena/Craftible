@@ -18,6 +18,20 @@ export default {
 <template>
     Projects:
     <div v-for="(item, index) in this.projects">
-        <p>{{ item.projectId }} {{ item.name }} {{ item.patternId }}</p>
+        <p>{{ item.projectId }} {{ item.name }} {{ item.patternId }}
+        <router-link :to="'/patterns/'+item.patternId"><button type="button" class="btn btn-secondary">go</button></router-link></p>
     </div>
 </template>
+
+<style scoped>
+.router-link{
+    border-radius: 5px;
+    color: var(--vt-c-offwhite);
+    font-variant: bold;
+}
+ .btn.btn-secondary{
+  background-color: var(--vt-c-pink);
+  border: 0;
+ }
+
+</style>

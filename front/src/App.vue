@@ -1,6 +1,7 @@
 <script>
 //import Users from './components/Users.vue'
 import HeaderV from './components/Header.vue'
+
 export default {
   components: {
       HeaderV
@@ -11,9 +12,7 @@ export default {
 <template>
   <HeaderV />
   <main>
-    <body>
       <router-view></router-view>
-    </body>
   </main>
 </template>
 

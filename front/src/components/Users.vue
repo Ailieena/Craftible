@@ -23,9 +23,5 @@ export default {
 </template>
 
 <style scoped>
-main {
-  margin-top: 5vw;
-  padding: 1vw;
-  text-align: center;
-}
+
 </style>

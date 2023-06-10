@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var sequelizedb = require('../models.js');
-
+const jwt = require('jsonwebtoken');
 
 router.get('/', (req, res) => {
   sequelizedb.models.User.findAll()
@@ -26,7 +26,36 @@ router.get('/:id', (req, res) => {
   });
 });
 
-router.post('/', (req, res) => {
+
+function generateAccessToken(username) {
+  return jwt.sign(username, 'kotek');
+}
+
+router.post('/login', (req, res) => {
+  const data = req.body;
+  console.log("trying to log in")
+  sequelizedb.models.User.findOne({ where: { login: data.login, passwordHash: data.password  }} )
+  .then((user) => { //sending user? userid?
+    if(user){
+      console.log("user " + user.login + " logged in")
+      var token = generateAccessToken(user.login)
+      var data = {
+        token: token,
+        userId: user.userId,
+        login: user.login
+      }
+      res.json(data);
+      res.statusCode = 200
+      res.send()
+    }
+    else {
+      res.statusCode = 401
+      res.send()
+    }
+  })
+});
+
+router.post('/register', (req, res) => {
   const user = req.body;
   //uploading the user to the database
 });

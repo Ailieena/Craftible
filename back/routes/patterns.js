@@ -1,7 +1,21 @@
 var express = require('express');
 var router = express.Router();
 var sequelizedb = require('../models.js');
+const jwt = require('jsonwebtoken');
 
+function authenticateToken(req, res, next) {
+  const authHeader = req.headers['Authorization']
+  const token = authHeader && authHeader.split(' ')[1]
+
+  if (token == null) return res.sendStatus(401)
+
+  jwt.verify(token, 'kotek', (err, user) => {
+    console.log(err)
+    if (err) return res.sendStatus(403)
+    req.user = user
+    next()
+  })
+}
 router.get('/', (req, res) => {
   sequelizedb.models.Pattern.findAll()
   .then((reqPatterns) => {
@@ -26,7 +40,7 @@ router.get('/:id', (req, res) => {
   });
 });
 
-router.post('/', async (req, res) => {
+router.post('/', authenticateToken, async (req, res) => {
   const newPattern = req.body;
   console.log(newPattern)
   const patt = await sequelizedb.models.Pattern.create(newPattern)

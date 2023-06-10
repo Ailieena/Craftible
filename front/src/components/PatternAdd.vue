@@ -5,7 +5,7 @@ export default {
           success: false,
           failure: false,
           form: {
-              userId: 1,
+              userId: null,
               categoryId: null,
               craftId: null,
               name: '',
@@ -31,20 +31,21 @@ mounted() {
 },
 methods: {
     submitForm() {
+      this.form.userId = this.store.userId
       console.log("form:" + JSON.stringify(this.form))
       // Make an API call to submit the form data
       // Replace 'apiEndpoint' with your actual API endpoint for creating a new pattern
       fetch('http://localhost:3000/patterns', {
-      method: "POST", 
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(this.form)})
+        credentials: 'include',
+        method: "POST", 
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer " + this.store.token
+        },
+        body: JSON.stringify(this.form)})
       .then((response) => {
         console.log("form response: " + response)
         this.success = true
-      }).then((data) => {
-        console.log("dataa " + data)
       })
       .catch((error) => {
         console.log("form error"+ error)
@@ -58,6 +59,10 @@ methods: {
 </script>
 
 <template>
+  <div v-if="!this.store.userId">
+    Please <router-link to="/login">log in</router-link> to add a pattern.
+  </div>
+  <div v-else>
     <form v-if=!this.success @submit.prevent="submitForm" >
       <label for="name">Name:</label><br>
       <input v-model="form.name" type="text" id="name" required>
@@ -83,4 +88,5 @@ methods: {
     </form>
     <p v-if="this.success">Successfully added new pattern! <a href="/patterns/add">CLick here to add next</a></p>
     <p v-if="this.failure">Failed to add a pattern</p>
+  </div>
 </template>

@@ -56,10 +56,6 @@ export default {
 
 <style scoped>
 
-.btn.btn-dark{
-    background-color: var(--vt-c-pink);
-    border: 0;
-}
 
 
 

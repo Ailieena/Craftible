@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var sequelizedb = require('../models.js');
-
+var authenticateToken = require('./auth.js')
 
 router.get('/', (req, res) => {
   sequelizedb.models.Project.findAll()
@@ -27,10 +27,13 @@ router.get('/:id', (req, res) => {
   });
 });
 
-router.post('/', (req, res) => { //creating a project
-  const project = req.body; //i assume the nessesary data is here, somehow?
-  //?
-  //await AppDataSource.manager.save(project)
+router.post('/', authenticateToken, async (req, res) => { 
+  console.log("projects post")
+  const newProject = req.body;
+  console.log(newProject)
+  const proj = await sequelizedb.models.Project.create(newProject)
+  console.log(proj)
+  res.send()
 });
 
 router.put('/:id', (req, res) => { //updating a project

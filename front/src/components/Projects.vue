@@ -19,7 +19,7 @@ export default {
     Projects:
     <div v-for="(item, index) in this.projects">
         <p>{{ item.projectId }} {{ item.name }} {{ item.patternId }}
-        <router-link :to="'/patterns/'+item.patternId"><button type="button" class="btn btn-secondary">go</button></router-link></p>
+        <router-link :to="'/projects/'+item.projectId"><button type="button" class="btn btn-secondary">go</button></router-link></p>
     </div>
 </template>
 

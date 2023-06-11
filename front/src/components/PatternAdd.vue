@@ -65,29 +65,29 @@ methods: {
   </div>
   <div v-else>
     <form v-if=!this.success @submit.prevent="submitForm" >
-      <label for="name">Name:</label><br>
-      <input v-model="form.name" type="text" id="name" required>
+      <label for="name" class="form-label">Name:</label><br>
+      <input v-model="form.name" type="text" class="form-control" id="name" required>
       <br>
-      <label for="description">Description:</label><br>
-      <textarea v-model="form.description" id="description"></textarea>
+      <label for="description" class="form-label" >Description:</label><br>
+      <textarea v-model="form.description" class="form-control" id="description"></textarea>
       <br>
       <label for="category">Category:</label><br>
-      <select v-model="form.categoryId" id="category" required>
+      <select v-model="form.categoryId" class="form-select" id="category" required>
         <option v-for="category in categories" :key="category.categoryId" :value="category.categoryId">
           {{ category.name }}
         </option>
       </select>
       <br>
       <label for="craft">Craft:</label><br>
-      <select v-model="form.craftId" id="craft" required>
+      <select v-model="form.craftId" class="form-select" id="craft" required>
         <option v-for="craft in crafts" :key="craft.craftId" :value="craft.craftId">
           {{ craft.name }}
         </option>
       </select>
       <br>
-      <br><button>Submit</button>
+      <br><button class="btn btn-dark" >Submit</button>
     </form>
-    <p v-if="this.success">Successfully added new pattern! <a href="/patterns/add">CLick here to add next</a></p>
+    <p v-if="this.success">Successfully added new pattern! <a href="/patterns/add">Click here to add next</a></p>
     <p v-if="this.failure">Failed to add a pattern</p>
   </div>
 </template>

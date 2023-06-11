@@ -5,7 +5,7 @@ export default {
       project: {}
     };
   },
-  mounted() {
+  beforeMount() {
     const id = this.$route.params.id;
     console.log("getting project " + id)
     fetch('http://localhost:3000/projects/'+id)

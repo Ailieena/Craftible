@@ -13,6 +13,9 @@ export default {
       .then(data => {
         this.patterns = data;
       }))
+      .catch((err) => {
+        console.log(err)
+      })
   }
 }
 </script>

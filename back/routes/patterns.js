@@ -1,23 +1,8 @@
 var express = require('express');
 var router = express.Router();
 var sequelizedb = require('../models.js');
-const jwt = require('jsonwebtoken');
+var authenticateToken = require('./auth.js')
 
-function authenticateToken(req, res, next) {
-  const authHeader = req.headers.authorization
-  const token = authHeader && authHeader.split(' ')[1]
-
-  if (token == null){
-    console.log("empty token")
-    return res.sendStatus(401)
-  } 
-
-  jwt.verify(token, 'kotek', (err, user) => {
-    if (err) return res.sendStatus(403)
-    req.user = user
-    next()
-  })
-}
 router.get('/', (req, res) => {
   sequelizedb.models.Pattern.findAll()
   .then((reqPatterns) => {

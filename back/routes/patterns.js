@@ -4,13 +4,15 @@ var sequelizedb = require('../models.js');
 const jwt = require('jsonwebtoken');
 
 function authenticateToken(req, res, next) {
-  const authHeader = req.headers['Authorization']
+  const authHeader = req.headers.authorization
   const token = authHeader && authHeader.split(' ')[1]
 
-  if (token == null) return res.sendStatus(401)
+  if (token == null){
+    console.log("empty token")
+    return res.sendStatus(401)
+  } 
 
   jwt.verify(token, 'kotek', (err, user) => {
-    console.log(err)
     if (err) return res.sendStatus(403)
     req.user = user
     next()
@@ -45,7 +47,6 @@ router.post('/', authenticateToken, async (req, res) => {
   console.log(newPattern)
   const patt = await sequelizedb.models.Pattern.create(newPattern)
   console.log(patt)
-  res.statusCode = 200
   res.send()
 });
 

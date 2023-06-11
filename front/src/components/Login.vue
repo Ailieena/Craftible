@@ -18,11 +18,14 @@ methods: {
         body: JSON.stringify(this.form)})
         .then(response => response.json()
         .then((data) => {
-            this.store.userId = data.userId
-            this.store.login = data.login
-            this.store.token = data.token
-            console.log(data)
+            
+            this.$cookies.set('token', data.token)
+            this.$cookies.set('login', data.login)
+            this.$cookies.set('userId', data.userId)
+            console.log(data) 
+            this.$router.push({ path: "/" })           
         })
+        .then(() => this.$router.push(this.$route.query.redirect || '/'))
         .catch(error => {
             console.error(error);
         }));
@@ -31,15 +34,15 @@ methods: {
 </script>
 
 <template>
-<div>
+<div class="row d-flex .justify-content-center">
     <form @submit.prevent="submitForm">
-    <label for="login">Login:</label><br>
-    <input v-model="form.login" type="login" id="login" required>
-    <br>
-    <label for="password">Password:</label><br>
-    <input v-model="form.password" type="password" id="password" required>
-    <br>
-    <br><button type="submit">Login</button>
+    <div class="mb-3 col">
+        <label for="login" class="form-label">Login:</label><br>
+        <input v-model="form.login" type="login" class="form-control" id="login" required>
+    </div>
+    <label for="password" class="form-label">Password:</label><br>
+    <input v-model="form.password" type="password" class="form-control" id="password" required>
+    <br><button type="submit" class="form-control">Login</button>
     </form>
 </div>
 </template>

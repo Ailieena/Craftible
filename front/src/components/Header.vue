@@ -1,3 +1,31 @@
+<script>
+export default {
+    data() {
+        return {
+            userId: null,
+            login: null
+        }
+    },
+    beforeMount() {
+        {
+            this.userId = this.$cookies.get('userId')
+            this.login = this.$cookies.get('login')
+        }
+    },
+    methods: {
+        logout() {
+            console.log("trying to log out")
+            this.$cookies.remove('userId')
+            this.$cookies.remove('login')
+            this.$cookies.remove('token')
+            this.$router.go(0)
+        }
+    }
+
+}
+</script>
+
+
 <template>
     <nav class="navbar fixed-top navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid">
@@ -13,10 +41,13 @@
                 <router-link to="/users">Users</router-link>
             </li>
         </ul>
-        <div class="col-md-auto">
-            <router-link to="/login">Log in</router-link>
+        <div class="navbar-nav me-auto col-md-auto mb-2 mb-lg-0">
+            <div v-if="this.userId">Hello, {{ login }}! </div>
         </div>
-        
+        <div class="col-md-auto">
+            <div v-if="!this.userId"><button type="button" class="btn btn-dark"><router-link to="/login">Log in</router-link></button></div>
+            <div v-else><button type="button" class="btn btn-dark" v-on:click="logout()">Log out </button></div>
+        </div>
     </div>
     </div>
     </nav>
@@ -24,9 +55,17 @@
 
 
 <style scoped>
+
+.btn.btn-dark{
+    background-color: var(--vt-c-pink);
+    border: 0;
+}
+
+
+
 .navbar-nav.me-auto.mb-2.mb-lg-0{
     display: flex;
-    flex-direction: row-reverse;
+    /* flex-direction: row-reverse; */
 
 }
 a{

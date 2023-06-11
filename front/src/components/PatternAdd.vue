@@ -16,6 +16,9 @@ export default {
           };
 },
 mounted() {
+    {
+      this.form.userId = this.$cookies.get('userId')
+    }
     fetch('http://localhost:3000/categories')
     .then(response => response.json()
     .then(data => {
@@ -31,16 +34,14 @@ mounted() {
 },
 methods: {
     submitForm() {
-      this.form.userId = this.store.userId
       console.log("form:" + JSON.stringify(this.form))
       // Make an API call to submit the form data
       // Replace 'apiEndpoint' with your actual API endpoint for creating a new pattern
       fetch('http://localhost:3000/patterns', {
-        credentials: 'include',
         method: "POST", 
         headers: {
           "Content-Type": "application/json",
-          "Authorization": "Bearer " + this.store.token
+          "Authorization": "Bearer " + this.$cookies.get('token')
         },
         body: JSON.stringify(this.form)})
       .then((response) => {
@@ -59,7 +60,7 @@ methods: {
 </script>
 
 <template>
-  <div v-if="!this.store.userId">
+  <div v-if="!this.form.userId">
     Please <router-link to="/login">log in</router-link> to add a pattern.
   </div>
   <div v-else>

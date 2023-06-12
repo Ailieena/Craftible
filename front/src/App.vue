@@ -11,7 +11,7 @@ export default {
 <template>
   <HeaderV />
   <main>
-    <div class="container-fluid">
+    <div class="mx-auto  mt-4">
       <router-view></router-view>
     </div>
   </main>
@@ -21,6 +21,7 @@ export default {
 
 main{
   padding-top: 70px;
+  margin: auto;
 }
 
 </style>

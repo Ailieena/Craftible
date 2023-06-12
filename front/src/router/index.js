@@ -9,6 +9,7 @@ import ProjectAdd from '../components/ProjectAdd.vue'
 import Categories from '../components/Categories.vue'
 import Login from '../components/Login.vue'
 import HeaderV from '../components/Header.vue'
+import Home from '../components/Home.vue'
 
 const routes = [
     {path: '/users', name: 'Users' , component: Users},
@@ -20,7 +21,8 @@ const routes = [
     {path: '/projects/add/:id', name: 'Add Project', component: ProjectAdd},
     {path: '/categories', name: 'Categories', component: Categories},
     {path: '/login', name: 'Login', component: Login},
-    {name: 'HeaderV', component: HeaderV}
+    {name: 'HeaderV', component: HeaderV},
+    {path: '/', name: 'Home', component: Home}
     ]
 
 

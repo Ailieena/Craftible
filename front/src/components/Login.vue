@@ -9,26 +9,32 @@ data() {
     };
 },
 methods: {
+    redirectReload() {
+        this.$router
+        .push({ path: '/' })
+        .then(() => { this.$router.go() })
+    },
     submitForm() {
-    fetch('http://localhost:3000/users/login', {
-        method: "POST", 
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify(this.form)})
-        .then(response => response.json()
-        .then((data) => {
-            
-            this.$cookies.set('token', data.token)
-            this.$cookies.set('login', data.login)
-            this.$cookies.set('userId', data.userId)
-            console.log(data) 
-            this.$router.push({ path: "/" })           
-        })
-        .then(() => this.$router.push(this.$route.query.redirect || '/'))
-        .catch(error => {
-            console.error(error);
-        }));
+        fetch('http://localhost:3000/users/login', {
+            method: "POST", 
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(this.form)})
+            .then(response => response.json()
+            .then((data) => {
+                
+                this.$cookies.set('token', data.token)
+                this.$cookies.set('login', data.login)
+                this.$cookies.set('userId', data.userId)
+                console.log(data) 
+                this.$router
+                .push({ path: '/' })
+                .then(() => { this.$router.go() })          
+            })
+            .catch(error => {
+                console.error(error);
+            }));
     }
 }};
 </script>

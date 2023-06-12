@@ -20,6 +20,7 @@ router.get('/:id', (req, res) => {
   sequelizedb.models.Pattern.findByPk(reqPatternId)
   .then((reqPattern) => {
     console.log("pattern get" + reqPattern)
+    console.log("pattern imageId: " + reqPattern.imageId)
     res.json(reqPattern)
   })
   .catch(error => {
@@ -35,10 +36,10 @@ router.post('/', authenticateToken, async (req, res) => {
   res.send()
 });
 
-router.put('/:id', (req, res) => { //updating a pattern
+router.put('/:id', (req, res) => {
   const patternId = req.params.id
   if (data.patterns.hasOwnProperty(patternId)){
-    //updating pattern
+    
   }
   else return res.json({ "error": "pattern doesn't exist."})
 });

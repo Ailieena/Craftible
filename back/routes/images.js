@@ -1,19 +1,30 @@
 var express = require('express');
 var router = express.Router();
-var data = require('./data.js');
+var sequelizedb = require('../models.js');
 
 
 router.get('/', (req, res) => {
-    res.json(data.images);
+  sequelizedb.models.Image.findAll()
+  .then((crafts) => {
+    console.log("images get")
+    res.json(crafts)
+  })
+  .catch(error => {
+    console.error('Error retrieving images:', error);
+  });
 });
 
-router.get('/:id', (req, res) => { //1-> 0, why??
-    const imageId = req.params.id
-    if (data.images.hasOwnProperty(imageId)){
-      res.json(data.images[imageId]);
-    }
-    else return res.json({ "error": "image doesn't exist."})
+router.get('/:id', (req, res) => {
+  const reqImageId = req.params.id
+  sequelizedb.models.Image.findByPk(reqImageId)
+  .then((reqImage) => {
+    console.log("image get" + reqImage)
+    res.json(reqImage)
+  })
+  .catch(error => {
+    console.error('Error retrieving image:', error);
   });
+});
 
 router.post('/', (req, res) => { 
   const image = req.body; 

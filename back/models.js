@@ -64,30 +64,6 @@ const Pattern = sequelizedb.define('Pattern', {
     primaryKey: true,
     autoIncrement: true
   },
-  // userId: {
-  //   type: DataTypes.INTEGER,
-  //   allowNull: false,
-  //   references: {
-  //     model: 'User',
-  //     key: 'userId'
-  //   }
-  // },
-  // craftId: {
-  //   type: DataTypes.INTEGER,
-  //   allowNull: false,
-  //   references: {
-  //     model: 'Craft',
-  //     key: 'craftId'
-  //   }
-  // },
-  // categoryId: {
-  //   type: DataTypes.INTEGER,
-  //   allowNull: false,
-  //   foreignKey: {
-  //     model: 'Category',
-  //     key: 'categoryId'
-  //   }
-  // },
   name: {
     type: DataTypes.STRING,
     allowNull: false
@@ -117,38 +93,6 @@ const Project = sequelizedb.define('Project', {
     primaryKey: true,
     autoIncrement: true
   },
-  // patternId: {
-  //   type: DataTypes.INTEGER,
-  //   allowNull: false,
-  //   references: {
-  //     model: 'Pattern',
-  //     key: 'patternId'
-  //   }
-  // },
-  // userId: {
-  //   type: DataTypes.INTEGER,
-  //   allowNull: false,
-  //   references: {
-  //     model: 'User',
-  //     key: 'userId'
-  //   }
-  // },
-  // craftId: {
-  //   type: DataTypes.INTEGER,
-  //   allowNull: false,
-  //   references: {
-  //     model: 'Craft',
-  //     key: 'craftId'
-  //   }
-  // },
-  // categoryId: {
-  //   type: DataTypes.INTEGER,
-  //   allowNull: false,
-  //   references: {
-  //     model: 'Category',
-  //     key: 'categoryId'
-  //   }
-  // },
   name: {
     type: DataTypes.STRING,
     allowNull: false
@@ -173,16 +117,34 @@ Category.hasMany(Project,
 })
 Pattern.hasMany(Project,
 {
-foreignKey: 'patternId'
+  foreignKey: 'patternId'
 })
 
+const Image = sequelizedb.define('Image', {
+  imageId: {
+    type: DataTypes.INTEGER,
+    primaryKey: true,
+    autoIncrement: true
+  },
+  filename: {
+    type: DataTypes.STRING,
+    allowNull: false
+  }
+})
 
-// sequelizedb.sync()
-// .then(() => {
-//   console.log("sync")
+// Pattern.belongsTo(Image,
+// {
+//   foreignKey: 'imageId'
 // })
-// .catch((err) => {
-//   console.log("Sync error: " + err.message)
-// })
+
+Image.hasOne(Pattern,
+{
+  foreignKey: 'imageId'
+})
+
+// Pattern.hasOne(Image,
+//   {
+//     foreignKey: 'imageId'
+//   })
 
 module.exports = sequelizedb;

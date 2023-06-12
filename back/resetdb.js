@@ -35,11 +35,29 @@ const categoryData = [
   { name: 'clothing' },
   { name: 'other' }
 ];
+
+const imageData = [
+  {
+    imageId: 1,
+    filename: '6.jpg'
+
+  },
+  {
+    imageId: 2,
+    filename: '7.jpg'
+  },
+  {
+    imageId: 3,
+    filename: '8.jpg'
+  },
+];
+
 const patternData = [
   {
     userId: 1,
     craftId: 1,
     categoryId: 2,
+    imageId: 1,
     name: 'Early Autumn Hat',
     description: 'A cozy hat perfect for the early autumn season.'
   },
@@ -47,6 +65,7 @@ const patternData = [
     userId: 2,
     craftId: 3,
     categoryId: 3,
+    imageId: 2,
     name: 'Elegant Evening Dress',
     description: 'An elegant dress for special evening occasions.'
   },
@@ -54,6 +73,7 @@ const patternData = [
     userId: 1,
     craftId: 2,
     categoryId: 4,
+    imageId: null,
     name: 'Crocheted Baby Blanket',
     description: 'A soft and warm blanket for babies, crocheted with love.'
   },
@@ -61,10 +81,12 @@ const patternData = [
     userId: 3,
     craftId: 6,
     categoryId: 1,
+    imageId: 3,
     name: 'Landscape Painting',
     description: 'A beautiful landscape painting capturing the essence of nature.'
   }
 ];
+
 const projectData = [
   {
     patternId: 1,
@@ -93,20 +115,17 @@ const projectData = [
 ];
 
 
+
 sequelizedb.sync()
   .then(async (syncDb) => {
     console.log("sync start")
-    /*await syncDb.models.User.bulkCreate(userData)
-    await syncDb.models.Craft.bulkCreate(craftData)
-    await syncDb.models.Category.bulkCreate(categoryData)
-    await syncDb.models.Pattern.bulkCreate(patternData)
-    await syncDb.models.Project.bulkCreate(projectData)*/
     Promise.all([
       sequelizedb.models.User.bulkCreate(userData),
       sequelizedb.models.Craft.bulkCreate(craftData),
       sequelizedb.models.Category.bulkCreate(categoryData),
+      sequelizedb.models.Image.bulkCreate(imageData),
       sequelizedb.models.Pattern.bulkCreate(patternData),
-      sequelizedb.models.Project.bulkCreate(projectData)
+      sequelizedb.models.Project.bulkCreate(projectData)      
     ])
     .then(() => {
       console.log('data inserted');

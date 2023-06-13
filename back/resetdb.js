@@ -50,6 +50,14 @@ const imageData = [
     imageId: 3,
     filename: '8.jpg'
   },
+  {
+    imageId: 4,
+    filename: 'bluecrochet.jpeg'
+  },
+  {
+    imageId: 5,
+    filename: 'yellowhat.jpeg'
+  }
 ];
 
 const patternData = [
@@ -93,6 +101,7 @@ const projectData = [
     userId: 1,
     craftId: 1,
     categoryId: 2,
+    imageId: 5,
     name: 'John\'s Early Autumn Hat',
     description: 'Used baby merino wool in yellow.'
   },
@@ -101,6 +110,7 @@ const projectData = [
     userId: 2,
     craftId: 2,
     categoryId: 4,
+    imageId: 4,
     name: 'Blue Crocheted Baby Blanket',
     description: 'Baby blue blanket for my niece'
   },

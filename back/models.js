@@ -132,19 +132,14 @@ const Image = sequelizedb.define('Image', {
   }
 })
 
-// Pattern.belongsTo(Image,
-// {
-//   foreignKey: 'imageId'
-// })
+Image.hasOne(Project,
+  {
+    foreignKey: 'imageId'
+  })
 
 Image.hasOne(Pattern,
 {
   foreignKey: 'imageId'
 })
-
-// Pattern.hasOne(Image,
-//   {
-//     foreignKey: 'imageId'
-//   })
 
 module.exports = sequelizedb;

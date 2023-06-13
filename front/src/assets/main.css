@@ -6,6 +6,10 @@ a,
   transition: 0.4s;
 }
 
+a{
+  color: var(--vt-c-dark)
+}
+
 .btn.btn-dark{
   background-color: var(--vt-c-pink);
   border: 0;

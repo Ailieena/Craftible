@@ -41,7 +41,7 @@ export default {
         this.imageFilename = imageData.filename; 
       }))}
       else{
-        console.log("pattern has no photo")
+        this.imageFilename =  'default.png';
       }
     })
   }
@@ -49,7 +49,7 @@ export default {
 </script>
 
 <template>
-  <div class="container text-center mt-4">
+  <div class="container text-center">
     <div class="row align-items-start">
   <div class="col-md-6">
     <img :src="'http://localhost:3000/static/'+this.imageFilename" class="img-fluid" width="540">
@@ -62,8 +62,10 @@ export default {
       <li class="list-group-item"><b>Category: </b>{{ this.category }}</li>
       <li class="list-group-item"><b>Craft: </b> {{ this.craft }}</li>
     </ul>
-    <div v-if="!this.userId"><router-link to="/login">Log in</router-link> to add a project to this pattern</div>
-    <div v-else><router-link :to="'/projects/add/' + this.$route.params.id">Add a project to this pattern</router-link></div>
+    <button type="button" class="btn btn-dark">
+      <div v-if="!this.userId"><router-link to="/login">Log in</router-link> to add a project to this pattern</div>
+      <div v-else><router-link :to="'/projects/add/' + this.$route.params.id">Add a project to this pattern</router-link></div>
+    </button>
   </div>
   </div></div>
 </template>
@@ -72,6 +74,9 @@ export default {
 
 .list-group-item{
   background-color: transparent;
+}
+a{
+  color: var(--vt-c-dark)
 }
 
 </style>

@@ -99,6 +99,8 @@ methods: {
         <option selected>{{ this.craft }}</option>
       </select>
       <br>
+      <input class="form-control" type="file" id="formFile">
+      <br>
       <br><button class="btn btn-dark">Submit</button>
     </form>
     <p v-if="this.success">Successfully added new project! <a href="/projects/add">Click here to add next</a></p>

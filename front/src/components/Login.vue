@@ -5,15 +5,12 @@ data() {
     form: {
         login: '',
         password: ''
-    }
-    };
+    }};
 },
+computed:  {
+    failure: false
+},    
 methods: {
-    redirectReload() {
-        this.$router
-        .push({ path: '/' })
-        .then(() => { this.$router.go() })
-    },
     submitForm() {
         fetch('http://localhost:3000/users/login', {
             method: "POST", 
@@ -23,7 +20,6 @@ methods: {
             body: JSON.stringify(this.form)})
             .then(response => response.json()
             .then((data) => {
-                
                 this.$cookies.set('token', data.token)
                 this.$cookies.set('login', data.login)
                 this.$cookies.set('userId', data.userId)
@@ -33,7 +29,9 @@ methods: {
                 .then(() => { this.$router.go() })          
             })
             .catch(error => {
+                this.failure = true
                 console.error(error);
+                console.log("failure: " + this.failure);
             }));
     }
 }};
@@ -49,6 +47,8 @@ methods: {
     <label for="password" class="form-label">Password:</label><br>
     <input v-model="form.password" type="password" class="form-control" id="password" required>
     <br><button type="submit" class="form-control">Login</button>
+    <br>
     </form>
+    <p v-if=this.failure>Incorrect credentials, try again.</p>
 </div>
 </template>

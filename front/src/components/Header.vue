@@ -37,8 +37,7 @@ export default {
         <ul class="navbar-nav me-auto col-md-auto mb-2 mb-lg-0">
             <li class="nav-item">
                 <router-link to="/patterns">Patterns </router-link> |
-                <router-link to="/projects">Projects </router-link> |
-                <router-link to="/users">Users</router-link>
+                <router-link to="/projects">Projects </router-link>
             </li>
         </ul>
         <div class="navbar-nav me-auto col-md-auto mb-2 mb-lg-0">

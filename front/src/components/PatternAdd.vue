@@ -1,19 +1,19 @@
 <script>
 export default {
-    data() {
-        return {
-          success: false,
-          failure: false,
-          form: {
-              userId: null,
-              categoryId: null,
-              craftId: null,
-              name: '',
-              description: ''
-          },
-          categories: [],
-          crafts: []
-          };
+data() {
+  return {
+    success: false,
+    failure: false,
+    form: {
+        userId: null,
+        categoryId: null,
+        craftId: null,
+        name: '',
+        description: ''
+    },
+    categories: [],
+    crafts: []
+  };
 },
 mounted() {
     {
@@ -85,8 +85,11 @@ methods: {
         </option>
       </select>
       <br>
+      <input class="form-control" type="file" id="formFile">
+
+      <br>
       <br><button class="btn btn-dark" >Submit</button>
-    </form>
+      </form>
     <p v-if="this.success">Successfully added new pattern! <a href="/patterns/add">Click here to add next</a></p>
     <p v-if="this.failure">Failed to add a pattern</p>
   </div>
